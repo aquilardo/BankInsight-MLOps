@@ -1,0 +1,88 @@
+=================================================================
+BANKINSIGHT MLOPS - INFORME DE CALIDAD DE DATOS
+=================================================================
+
+1. DIMENSIONES
+Filas: 41188
+Columnas: 21
+
+2. TIPOS DE DATOS
+age                 int64
+job                object
+marital            object
+education          object
+default            object
+housing            object
+loan               object
+contact            object
+month              object
+day_of_week        object
+duration            int64
+campaign            int64
+pdays               int64
+previous            int64
+poutcome           object
+emp.var.rate      float64
+cons.price.idx    float64
+cons.conf.idx     float64
+euribor3m         float64
+nr.employed       float64
+y                  object
+
+3. VALORES NULOS
+age               0
+job               0
+marital           0
+education         0
+default           0
+housing           0
+loan              0
+contact           0
+month             0
+day_of_week       0
+duration          0
+campaign          0
+pdays             0
+previous          0
+poutcome          0
+emp.var.rate      0
+cons.price.idx    0
+cons.conf.idx     0
+euribor3m         0
+nr.employed       0
+y                 0
+Total de valores nulos: 0
+
+4. VALORES 'UNKNOWN'
+job: 330 (0.80%)
+marital: 80 (0.19%)
+education: 1731 (4.20%)
+default: 8597 (20.87%)
+housing: 990 (2.40%)
+loan: 990 (2.40%)
+
+5. REGISTROS DUPLICADOS
+Duplicados exactos: 12
+
+6. DISTRIBUCIÓN DE LA VARIABLE OBJETIVO
+no: 36548 (88.73%)
+yes: 4640 (11.27%)
+
+7. ESTADÍSTICAS DESCRIPTIVAS
+            age  duration  campaign     pdays  previous  emp.var.rate  cons.price.idx  cons.conf.idx  euribor3m  nr.employed
+count  41188.00  41188.00  41188.00  41188.00  41188.00      41188.00        41188.00       41188.00   41188.00     41188.00
+mean      40.02    258.29      2.57    962.48      0.17          0.08           93.58         -40.50       3.62      5167.04
+std       10.42    259.28      2.77    186.91      0.49          1.57            0.58           4.63       1.73        72.25
+min       17.00      0.00      1.00      0.00      0.00         -3.40           92.20         -50.80       0.63      4963.60
+25%       32.00    102.00      1.00    999.00      0.00         -1.80           93.08         -42.70       1.34      5099.10
+50%       38.00    180.00      2.00    999.00      0.00          1.10           93.75         -41.80       4.86      5191.00
+75%       47.00    319.00      3.00    999.00      0.00          1.40           93.99         -36.40       4.96      5228.10
+max       98.00   4918.00     56.00    999.00      7.00          1.40           94.77         -26.90       5.04      5228.10
+
+8. OBSERVACIONES METODOLÓGICAS
+- La variable objetivo es 'y'.
+- La variable 'duration' se excluirá del entrenamiento.
+- Los valores 'unknown' requieren análisis específico.
+- Se debe considerar el desbalance de clases.
+
+=================================================================
