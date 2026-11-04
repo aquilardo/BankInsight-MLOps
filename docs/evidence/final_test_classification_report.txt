@@ -1,0 +1,28 @@
+BANKINSIGHT MLOPS - EVALUACIÓN FINAL
+=======================================================
+
+Modelo: random_forest_300_depth_20_grouped_validation
+Run ID: 5c1aa02c32a647cebda6e4bc45bbbf63
+Registros de prueba: 8243
+
+MÉTRICAS
+accuracy: 0.879292
+precision: 0.479920
+recall: 0.500524
+f1: 0.490005
+roc_auc: 0.790612
+
+MATRIZ DE CONFUSIÓN
+          Predicho_no  Predicho_yes
+Real_no          6770           518
+Real_yes          477           478
+
+REPORTE DE CLASIFICACIÓN
+              precision    recall  f1-score   support
+
+          no       0.93      0.93      0.93      7288
+         yes       0.48      0.50      0.49       955
+
+    accuracy                           0.88      8243
+   macro avg       0.71      0.71      0.71      8243
+weighted avg       0.88      0.88      0.88      8243

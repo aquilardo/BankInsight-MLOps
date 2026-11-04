@@ -1,0 +1,2 @@
+model,candidate_run_id,test_samples,accuracy,precision,recall,f1,roc_auc
+random_forest_300_depth_20_grouped_validation,5c1aa02c32a647cebda6e4bc45bbbf63,8243,0.8792915200776417,0.4799196787148594,0.5005235602094241,0.4900051255766274,0.790612266596169
