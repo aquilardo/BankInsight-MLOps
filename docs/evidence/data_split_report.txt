@@ -1,0 +1,32 @@
+=================================================================
+BANKINSIGHT MLOPS - INFORME DE DIVISION
+=================================================================
+
+1. DIMENSIONES
+Total: 41176
+Entrenamiento: 32933 (79.98%)
+Prueba: 8243 (20.02%)
+
+2. DISTRIBUCIÓN DE CLASES
+
+ENTRENAMIENTO
+no: 29249 (88.81%)
+yes: 3684 (11.19%)
+
+PRUEBA
+no: 7288 (88.41%)
+yes: 955 (11.59%)
+
+3. VALIDACIONES
+Columnas: 20
+Duplicados exactos en entrenamiento: 1417
+Duplicados exactos en prueba: 355
+Perfiles compartidos entre conjuntos: 0
+Variable duration presente: False
+
+4. CONFIGURACIÓN
+Estrategia: StratifiedGroupKFold
+N_SPLITS: 5
+RANDOM_STATE: 42
+
+=================================================================
