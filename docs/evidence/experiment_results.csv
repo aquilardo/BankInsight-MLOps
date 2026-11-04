@@ -1,0 +1,6 @@
+run_name,model,C,f1,precision,recall,roc_auc,n_estimators,max_depth,min_samples_split,min_samples_leaf,learning_rate
+random_forest_300_depth_20_grouped_validation,random_forest,,0.5006321112515802,0.4931506849315068,0.5083440308087291,0.7900037719272376,300.0,20.0,5.0,2.0,
+random_forest_200_depth_12_grouped_validation,random_forest,,0.49641478212906787,0.43520309477756286,0.5776636713735558,0.7939691739745446,200.0,12.0,5.0,2.0,
+gradient_boosting_100_lr_005_grouped_validation,gradient_boosting,,0.45382830626450116,0.3553779069767442,0.6277278562259306,0.7903717621242182,100.0,3.0,,,0.05
+logistic_regression_c_1.0_grouped_validation,logistic_regression,1.0,0.4514285714285714,0.3588190764572294,0.6084724005134788,0.779752822348436,,,,,
+logistic_regression_c_0.1_grouped_validation,logistic_regression,0.1,0.4497153700189753,0.35665914221218964,0.6084724005134788,0.7803510974622979,,,,,
