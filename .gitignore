@@ -1,0 +1,43 @@
+﻿# Entorno virtual
+.venv/
+venv/
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+
+# Variables de entorno y secretos
+.env
+.env.*
+!.env.example
+
+# MLflow
+mlruns/
+mlartifacts/
+
+# Datos privados o descargados
+data/raw/*
+data/processed/*
+data/reference/*
+!data/raw/.gitkeep
+!data/processed/.gitkeep
+!data/reference/.gitkeep
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Editores
+.vscode/
+.idea/
+
+# Archivos del sistema
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Logs y temporales
+*.log
+tmp/
+temp/
+.pytest_cache/
