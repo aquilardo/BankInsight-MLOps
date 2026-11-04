@@ -1,0 +1,34 @@
+
+# Procesamiento y análisis de datos
+numpy==2.2.6
+pandas==2.2.3
+scipy==1.15.3
+
+# Machine Learning
+scikit-learn==1.6.1
+joblib==1.5.1
+
+# Seguimiento de experimentos y modelos
+mlflow==3.1.1
+
+# API de inferencia
+fastapi==0.115.14
+uvicorn[standard]==0.34.3
+pydantic==2.11.7
+
+# Base de datos y almacenamiento de artefactos
+psycopg[binary]==3.2.9
+boto3==1.38.46
+
+# Variables de entorno
+python-dotenv==1.1.1
+
+# Interfaz
+streamlit==1.46.1
+
+# Visualización y reportes
+matplotlib==3.10.3
+
+# Pruebas
+pytest==8.4.1
+httpx==0.28.1
