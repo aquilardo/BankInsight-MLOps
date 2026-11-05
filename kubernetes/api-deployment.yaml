@@ -1,0 +1,58 @@
+﻿apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bankinsight-api
+  labels:
+    app: bankinsight-api
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: bankinsight-api
+  template:
+    metadata:
+      labels:
+        app: bankinsight-api
+    spec:
+      containers:
+        - name: api
+          image: bankinsight-mlops-api:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: http
+              containerPort: 8000
+              protocol: TCP
+          env:
+            - name: MLFLOW_TRACKING_URI
+              value: "http://host.docker.internal:5000"
+            - name: MLFLOW_MODEL_NAME
+              value: "BankInsight-Campaign-Subscription"
+            - name: MLFLOW_MODEL_ALIAS
+              value: "candidate"
+          startupProbe:
+            httpGet:
+              path: /health
+              port: 8000
+            periodSeconds: 5
+            failureThreshold: 30
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 8000
+            periodSeconds: 10
+            timeoutSeconds: 3
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 8000
+            periodSeconds: 20
+            timeoutSeconds: 3
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "256Mi"
+            limits:
+              cpu: "1000m"
+              memory: "2Gi"
+          securityContext:
+            allowPrivilegeEscalation: false

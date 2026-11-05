@@ -1,0 +1,37 @@
+BANKINSIGHT MLOPS
+KUBERNETES - PRUEBA DE AUTOSANACION
+===================================
+
+Fecha: 2026-11-04 20:49:11
+
+1. CONFIGURACION
+Deployment: bankinsight-api
+Replicas deseadas: 3
+Nodo: docker-desktop
+
+2. PRUEBA DE FALLO
+Pod eliminado deliberadamente:
+bankinsight-api-697966db-kz944
+
+3. RECUPERACION AUTOMATICA
+Pod creado por Kubernetes:
+bankinsight-api-697966db-8hb6d
+
+4. ESTADO FINAL DEL DEPLOYMENT
+--- DEPLOYMENTS ---
+NAME              READY   UP-TO-DATE   AVAILABLE   AGE   CONTAINERS   IMAGES                         SELECTOR
+bankinsight-api   3/3     3            3           11m   api          bankinsight-mlops-api:latest   app=bankinsight-api
+
+--- PODS ---
+NAME                             READY   STATUS    RESTARTS   AGE     IP          NODE             NOMINATED NODE   READINESS GATES
+bankinsight-api-697966db-5897p   1/1     Running   0          11m     10.1.0.12   docker-desktop   <none>           <none>
+bankinsight-api-697966db-8hb6d   1/1     Running   0          3m33s   10.1.0.13   docker-desktop   <none>           <none>
+bankinsight-api-697966db-pfn7d   1/1     Running   0          11m     10.1.0.11   docker-desktop   <none>           <none>
+
+--- SERVICE ---
+NAME                      TYPE       CLUSTER-IP       EXTERNAL-IP   PORT(S)          AGE
+bankinsight-api-service   NodePort   10.109.126.247   <none>        8000:30080/TCP   11m
+
+--- ENDPOINT SLICES ---
+NAME                            ADDRESSTYPE   PORTS   ENDPOINTS                       AGE
+bankinsight-api-service-rb64s   IPv4          8000    10.1.0.12,10.1.0.11,10.1.0.13   11m
