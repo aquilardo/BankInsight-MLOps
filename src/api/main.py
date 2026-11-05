@@ -1,13 +1,19 @@
+
+import logging
 from contextlib import asynccontextmanager
 
 import pandas as pd
 from fastapi import FastAPI, HTTPException, Request
 
 from src.api.model_loader import load_registered_model
+from src.api.prediction_store import save_prediction_event
 from src.api.schemas import (
     PredictionRequest,
     PredictionResponse
 )
+
+
+logger = logging.getLogger(__name__)
 
 
 FEATURE_COLUMNS = [
@@ -148,17 +154,38 @@ def predict(
             columns=FEATURE_COLUMNS
         )
 
-        prediction = bundle["model"].predict(dataframe)[0]
+        prediction = str(
+            bundle["model"].predict(dataframe)[0]
+        )
 
-        return PredictionResponse(
-            prediction=str(prediction),
+    except Exception as exc:
+        logger.exception("Error durante la predicción")
+
+        raise HTTPException(
+            status_code=500,
+            detail="Error durante la predicción."
+        ) from exc
+
+    # La persistencia es independiente de la inferencia.
+    # Un fallo de telemetría no debe interrumpir la API.
+    try:
+        save_prediction_event(
+            features=record,
+            prediction=prediction,
             model_name=bundle["name"],
             model_version=bundle["version"],
             model_alias=bundle["alias"]
         )
 
-    except Exception as exc:
-        raise HTTPException(
-            status_code=500,
-            detail=f"Error durante la predicción: {str(exc)}"
-        ) from exc
+    except Exception:
+        logger.exception(
+            "No fue posible registrar el evento de predicción "
+            "en PostgreSQL."
+        )
+
+    return PredictionResponse(
+        prediction=prediction,
+        model_name=bundle["name"],
+        model_version=bundle["version"],
+        model_alias=bundle["alias"]
+    )

@@ -1,0 +1,68 @@
+BANKINSIGHT MLOPS
+INFORME DE VALIDACION: TELEMETRIA DE PREDICCIONES
+=================================================
+
+Fecha de validacion: 2026-11-04 22:12:24
+
+1. ARQUITECTURA
+---------------
+API: FastAPI
+Orquestacion: Kubernetes (Docker Desktop)
+Replicas configuradas: 3
+Base de datos: PostgreSQL 16
+Esquema: monitoring
+Tabla: prediction_events
+
+2. CONFIGURACION DE SEGURIDAD
+-----------------------------
+Secret Kubernetes: bankinsight-postgres-secret
+Variables sensibles:
+- POSTGRES_DB
+- POSTGRES_USER
+- POSTGRES_PASSWORD
+
+Las credenciales se inyectan mediante Secret.
+No se almacenan directamente en el manifiesto Deployment.
+
+3. DISPONIBILIDAD DE REPLICAS
+-----------------------------
+Las tres replicas se encuentran en estado Running y Ready.
+Cada replica dispone de las variables de conexion PostgreSQL.
+
+4. CONECTIVIDAD
+--------------
+Las tres replicas establecieron conexiones PostgreSQL exitosas.
+
+Base de datos: mlflow
+Usuario: bankinsight
+
+5. PERSISTENCIA DE PREDICCIONES
+-------------------------------
+Tabla: monitoring.prediction_events
+Ultimo evento registrado: 4
+Modelo: BankInsight-Campaign-Subscription
+Version: 1
+Alias: candidate
+Prediccion: no
+Caracteristicas almacenadas: 19
+
+6. RESULTADO
+------------
+VALIDADO
+
+Se comprobo el flujo de inferencia desde Kubernetes hasta PostgreSQL.
+Los eventos incluyen las caracteristicas utilizadas, la prediccion
+y los metadatos de version y alias del modelo.
+
+7. ALCANCE Y LIMITACIONES
+------------------------
+La prueba se realizo en un cluster Kubernetes de un solo nodo
+(Docker Desktop). Las tres replicas demuestran escalamiento y
+recuperacion a nivel de Pods, pero no alta disponibilidad entre nodos.
+
+La telemetria registra predicciones y caracteristicas de entrada.
+No constituye por si sola una medicion de concept drift, ya que
+no incorpora etiquetas reales posteriores de los clientes.
+
+=================================================
+FIN DEL INFORME

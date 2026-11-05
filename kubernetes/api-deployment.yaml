@@ -1,4 +1,4 @@
-﻿apiVersion: apps/v1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: bankinsight-api
@@ -29,6 +29,25 @@ spec:
               value: "BankInsight-Campaign-Subscription"
             - name: MLFLOW_MODEL_ALIAS
               value: "candidate"
+            - name: POSTGRES_HOST
+              value: "host.docker.internal"
+            - name: POSTGRES_PORT
+              value: "5432"
+            - name: POSTGRES_DB
+              valueFrom:
+                secretKeyRef:
+                  name: bankinsight-postgres-secret
+                  key: POSTGRES_DB
+            - name: POSTGRES_USER
+              valueFrom:
+                secretKeyRef:
+                  name: bankinsight-postgres-secret
+                  key: POSTGRES_USER
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: bankinsight-postgres-secret
+                  key: POSTGRES_PASSWORD
           startupProbe:
             httpGet:
               path: /health

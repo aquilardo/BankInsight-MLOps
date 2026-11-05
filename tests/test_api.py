@@ -24,6 +24,11 @@ def client(monkeypatch):
         "load_registered_model",
         lambda: fake_bundle
     )
+    monkeypatch.setattr(
+        api_module,
+        "save_prediction_event",
+        lambda **kwargs: None
+    )
 
     with TestClient(api_module.app) as test_client:
         yield test_client
@@ -103,3 +108,50 @@ def test_prediction_rejects_invalid_age(client, valid_payload):
     response = client.post("/predict", json=valid_payload)
 
     assert response.status_code == 422
+def test_prediction_saves_monitoring_event(
+    client,
+    valid_payload,
+    monkeypatch
+):
+    captured = {}
+
+    def fake_save(**kwargs):
+        captured.update(kwargs)
+
+    monkeypatch.setattr(
+        api_module,
+        "save_prediction_event",
+        fake_save
+    )
+
+    response = client.post("/predict", json=valid_payload)
+
+    assert response.status_code == 200
+    assert captured["prediction"] == "yes"
+    assert captured["model_name"] == (
+        "BankInsight-Campaign-Subscription"
+    )
+    assert captured["model_version"] == "1"
+    assert captured["model_alias"] == "candidate"
+    assert len(captured["features"]) == 19
+
+
+def test_prediction_survives_storage_failure(
+    client,
+    valid_payload,
+    monkeypatch
+):
+    def failing_save(**kwargs):
+        raise RuntimeError("Database unavailable")
+
+    monkeypatch.setattr(
+        api_module,
+        "save_prediction_event",
+        failing_save
+    )
+
+    response = client.post("/predict", json=valid_payload)
+
+    assert response.status_code == 200
+    assert response.json()["prediction"] == "yes"
+    assert response.json()["model_version"] == "1"
